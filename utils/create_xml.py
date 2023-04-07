@@ -46,7 +46,7 @@ def createXml(info: InfoTributaria):
     fechaEmision = etree.SubElement(infoFactura, 'fechaEmision')
     fechaEmision.text = '07/04/2023'
     dirEstablecimiento = etree.SubElement(infoFactura, 'dirEstablecimiento')
-    dirEstablecimiento.text = 'Barrio: ISIMBO Calle: PRINCIPAL Número: S/N '
+    dirEstablecimiento.text = 'Demo adress'
     # contribuyenteEspecial = etree.SubElement(
     #     infoFactura, 'contribuyenteEspecial')
     # contribuyenteEspecial.text = '1'
