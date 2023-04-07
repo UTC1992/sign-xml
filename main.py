@@ -7,6 +7,7 @@ from utils import send_xml
 from utils import sign_xml
 from utils import create_access_password
 from utils import create_xml
+from utils import delete_files_xml
 
 from models.info_to_sign_xml import InfoToSignXml
 from models.info_access_key import InfoAccessKey
@@ -33,7 +34,7 @@ def main():
         '1',
         '001',
         '100',
-        '000000013',
+        '000000014',
         str(random.randint(1, 99999999)).zfill(8),
     )
     accessKey = create_access_password.createAccessKey(infoAccessKey)
@@ -101,3 +102,10 @@ def main():
 
 # run program
 main()
+
+def deleteXmls():
+    for directoryPath in ['xmls/no-signed-xml', 'xmls/yes-signed-xml']:
+        extension = '.xml'
+        delete_files_xml.delete_files(directoryPath, extension)
+
+# deleteXmls()

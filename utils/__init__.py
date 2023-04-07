@@ -3,3 +3,4 @@ from . import create_xml
 from . import create_access_password
 from . import sign_xml
 from . import send_xml
+from . import delete_files_xml
