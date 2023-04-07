@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import asyncio
 sys.path.append('./utils')
 
 from utils import send_xml
@@ -20,7 +21,7 @@ from dotenv import dotenv_values
 env_vars = dotenv_values(".env")
 
 
-def main():
+async def main():
     # create xml
 
     # info to create access key
@@ -34,7 +35,7 @@ def main():
         '1',
         '001',
         '100',
-        '000000014',
+        '000000020',
         str(random.randint(1, 99999999)).zfill(8),
     )
     accessKey = create_access_password.createAccessKey(infoAccessKey)
@@ -90,18 +91,18 @@ def main():
 
 
     if isXmlCreated:
-        send_xml.send_xml_to_reception(
+        isSent = await send_xml.send_xml_to_reception(
             pathXmlSigned,
             urlReception,
         )
-
-        send_xml.send_xml_to_authorization(
-            accessKey,
-            urlAuthorization,
-        )
+        if (isSent):
+            await send_xml.send_xml_to_authorization(
+                accessKey,
+                urlAuthorization,
+            )
 
 # run program
-main()
+asyncio.run(main())
 
 def deleteXmls():
     for directoryPath in ['xmls/no-signed-xml', 'xmls/yes-signed-xml']:
