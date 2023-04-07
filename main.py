@@ -1,7 +1,6 @@
 import os
 import sys
 import random
-import asyncio
 sys.path.append('./utils')
 
 from utils import send_xml
@@ -29,12 +28,12 @@ def main():
         '04',
         '2023',
         '01',
-        '0503254849001',
+        env_vars["RUC_USER_DEMO"],
         '1',
         '1',
         '001',
         '100',
-        '000000011',
+        '000000013',
         str(random.randint(1, 99999999)).zfill(8),
     )
     accessKey = create_access_password.createAccessKey(infoAccessKey)
@@ -43,15 +42,15 @@ def main():
     infoTax = InfoTributaria(
         '1',
         '1',
-        'MAURO OMAR GUANOLUISA ARCINIEGA',
-        'TSCorp',
+        env_vars["NAME_USER"],
+        env_vars["COMMERCIAL_NAME"],
         infoAccessKey.rucBusiness,
         str(accessKey),
         infoAccessKey.codDoc,
         infoAccessKey.establishment,
         infoAccessKey.pointEmission,
         infoAccessKey.sequential,
-        'Quito'
+        env_vars["ADDRESS_USER"],
     )
 
     # generate xml

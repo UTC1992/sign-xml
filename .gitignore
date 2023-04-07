@@ -1,6 +1,4 @@
 *.p12
-/no-signed-xml
-/signed-xml
 .env
 *.xml
-/__pycache__
+__pycache__
