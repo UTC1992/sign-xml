@@ -1,0 +1,51 @@
+{
+  "factura": {
+    "version": "1.0.0",
+    "fechaEmision": "28/06/2022",
+    "codDoc": "01",
+    "ruc": "9999999999999",
+    "estab": "001",
+    "ptoEmi": "001",
+    "secuencial": "000000001",
+    "receptor": {
+      "tipoIdentificacion": "04",
+      "razonSocial": "Hannah Hegmann",
+      "identificacion": "9999999999999",
+      "direccion": "665 Edythe Lock"
+    },
+    "detalles": [
+      {
+        "codigoPrincipal": "B000HQGKRO",
+        "codigoAuxiliar": "B0000DHW2M",
+        "descripcion": "HopSlam Ale",
+        "cantidad": 1,
+        "precioUnitario": 209,
+        "descuento": 0,
+        "impuesto": [
+          {
+            "codigo": "2",
+            "codigoPorcentaje": "2",
+            "tarifa": 12,
+            "baseImponible": 209,
+            "valor": 25.08
+          }
+        ]
+      }
+    ],
+    "pagos": [
+      {
+        "formaPago": "01",
+        "total": 209,
+        "plazo": "0",
+        "unidadTiempo": "Días"
+      }
+    ],
+    "moneda": "DOLAR",
+    "campoAdicional": [
+      {
+        "nombre": "email",
+        "value": "no-reply@veronica.ec"
+      }
+    ]
+  }
+}
