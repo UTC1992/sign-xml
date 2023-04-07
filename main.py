@@ -1,39 +1,61 @@
 import sys
-import json
-
+import random
 sys.path.append('./utils')
+import os
 
 # Add module
-from utils import module11
 from utils import create_xml
 from utils import create_access_password
 from utils import sign_xml
+from models.info_tributaria import InfoTributaria
+from models.info_access_key import InfoAccessKey
+from models.info_to_sign_xml import InfoToSignXml
 
-from xades_bes_sri_ec import xades
+# create xml
 
-# number = 310120230105032548490012001100000000005
-# checker = module11.modulo11(number)
-# print(checker)
+# info to create access key
+infoAccessKey = InfoAccessKey(
+    '07',
+    '04',
+    '2023',
+    '01',
+    '0503254849001',
+    '1',
+    '001',
+    '100',
+    '000000002',
+    str(random.randint(1, 999999999)).zfill(9) 
+)
+accessKey = create_access_password.createAccessKey(infoAccessKey)
 
-# with open('invoice.json', 'r') as f:
-#     dataJson = json.load(f)
+# info to tax
+infoTax = InfoTributaria(
+    '1',
+    '1',
+    'MAURO OMAR GUANOLUISA ARCINIEGA',
+    'TSCorp',
+    infoAccessKey.rucBusiness,
+    str(accessKey),
+    infoAccessKey.codDoc,
+    infoAccessKey.establishment,
+    infoAccessKey.pointEmission,
+    infoAccessKey.sequential,
+    'Quito'
+)
 
+# generate xml
+xml = create_xml.createXml(infoTax)
+fileName = ''.join(accessKey)+'.xml'
+pathToSaveXml = os.path.join('xmls/no-signed-xml/'+fileName)
 
-# json_str = json.dumps(dataJson)
-# xmlFile = createXml.jsonToXml(json_str)
+# save xml in directory
+#create_xml.saveXml(xml, pathToSaveXml)
 
-# with open('xml-file.xml', 'w') as f:
-#     f.write(xmlFile)
+# sign xml
+infoToSignXml = InfoToSignXml(
 
-
-# private_key = create_access_password.getPasswordOfP12File()
-# access_key = create_access_password.createAccessPassword()
-
-# print( access_key)
-# print( len(access_key))
-
-access_key = create_access_password.createAccessPassword()
-create_xml.createXml(access_key)
+)
 
 sign_xml.sign_xml()
+
 

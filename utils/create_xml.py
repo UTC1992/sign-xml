@@ -1,7 +1,8 @@
 import json
 import xmltodict
 from lxml import etree
-
+import os
+from models.info_tributaria import InfoTributaria
 
 def jsonToXml(json_str):
 
@@ -14,36 +15,36 @@ def jsonToXml(json_str):
     return xml_str
 
 
-def createXml(access_key):
-    root = etree.Element('factura', attrib={
-                         'id': 'comprobante', 'version': '1.0.0'})
+def createXml(info: InfoTributaria):
+    root = etree.Element('factura', attrib={'id': 'comprobante', 'version': '1.0.0'})
     infoTributaria = etree.SubElement(root, 'infoTributaria')
     ambiente = etree.SubElement(infoTributaria, 'ambiente')
-    ambiente.text = '1'
+    ambiente.text = ''.join(info.ambiente)
     tipoEmision = etree.SubElement(infoTributaria, 'tipoEmision')
-    tipoEmision.text = '1'
+    tipoEmision.text = ''.join(info.tipoEmision)
     razonSocial = etree.SubElement(infoTributaria, 'razonSocial')
-    razonSocial.text = 'MAURO OMAR GUANOLUISA ARCINIEGA'
+    razonSocial.text = ''.join(info.razonSocial)
     nombreComercial = etree.SubElement(infoTributaria, 'nombreComercial')
-    nombreComercial.text = 'TSCorp'
+    nombreComercial.text = ''.join(info.nombreComercial)
     ruc = etree.SubElement(infoTributaria, 'ruc')
-    ruc.text = '0503254849001'
+    ruc.text = ''.join(info.ruc)
     claveAcceso = etree.SubElement(infoTributaria, 'claveAcceso')
-    claveAcceso.text = access_key
+    claveAcceso.text = ''.join(info.claveAcceso)
     codDoc = etree.SubElement(infoTributaria, 'codDoc')
-    codDoc.text = '01'
+    codDoc.text = ''.join(info.codDoc)
     estab = etree.SubElement(infoTributaria, 'estab')
-    estab.text = '001'
+    estab.text = ''.join(info.establecimiento)
     ptoEmi = etree.SubElement(infoTributaria, 'ptoEmi')
-    ptoEmi.text = '100'
+    ptoEmi.text = ''.join(info.puntoEmision)
     secuencial = etree.SubElement(infoTributaria, 'secuencial')
-    secuencial.text = '000000001'
+    secuencial.text = ''.join(info.secuencial)
     dirMatriz = etree.SubElement(infoTributaria, 'dirMatriz')
-    dirMatriz.text = 'Barrio: ISIMBO Calle: PRINCIPAL Número: S/N'
+    dirMatriz.text = ''.join(info.direccionMatriz)
+    # end info tributaria
 
     infoFactura = etree.SubElement(root, 'infoFactura')
     fechaEmision = etree.SubElement(infoFactura, 'fechaEmision')
-    fechaEmision.text = '06/04/2023'
+    fechaEmision.text = '07/04/2023'
     dirEstablecimiento = etree.SubElement(infoFactura, 'dirEstablecimiento')
     dirEstablecimiento.text = 'Barrio: ISIMBO Calle: PRINCIPAL Número: S/N '
     # contribuyenteEspecial = etree.SubElement(
@@ -69,6 +70,7 @@ def createXml(access_key):
     totalDescuento.text = '0.00'
     
     totalConImpuestos = etree.SubElement(infoFactura, 'totalConImpuestos')
+    # end info factura
     
     totalImpuesto1 = etree.SubElement(totalConImpuestos, 'totalImpuesto')
     codigo1 = etree.SubElement(totalImpuesto1, 'codigo')
@@ -166,7 +168,9 @@ def createXml(access_key):
     infoAdicional = etree.SubElement(root, 'infoAdicional')
     campoAdicional = etree.SubElement(infoAdicional, 'campoAdicional', attrib={'nombre': 'email'})
     campoAdicional.text = 'demo@gmail.com'
+    return root
 
-    tree = etree.ElementTree(root)
-    tree.write('catalog.xml', xml_declaration=True,
+def saveXml(xml, pathToSave): 
+    tree = etree.ElementTree(xml)
+    tree.write(pathToSave, xml_declaration=True,
               encoding='UTF-8', standalone=True)
