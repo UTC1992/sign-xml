@@ -3,8 +3,8 @@ class InfoToSignXml:
             self,
             pathXmlToSign: str,
             pathXmlSigned: str,
-            passwordSignature: str,
-            pathSignatureP12: str  
+            pathSignatureP12: str,
+            passwordSignature: str
     ):
         self.pathXmlToSign = pathXmlToSign
         self.pathXmlSigned = pathXmlSigned

@@ -61,7 +61,7 @@ class Xades(object):
         #JAR_PATH = 'firmaSri\\FirmaSri.jar'
         JAVA_CMD = 'java'
         firma_path = os.path.join(os.path.dirname(__file__), JAR_PATH)
-        print(firma_path)
+        # print(firma_path)
         #firma_path = './'
         #
         # command = [
@@ -98,7 +98,7 @@ class Xades(object):
             # file_pk12),
             # base64.b64encode(password)
         ]
-        print("Command", command)
+        # print("Command", command)
         try:
             subprocess.check_output(command)
         except subprocess.CalledProcessError as e:

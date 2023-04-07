@@ -1,6 +1,6 @@
 import module11
 from models.info_access_key import InfoAccessKey
-
+from xades import xades
 
 def createAccessKey( infoAccessKey: InfoAccessKey ):
     # Info de la invoice
@@ -12,10 +12,20 @@ def createAccessKey( infoAccessKey: InfoAccessKey ):
     pointEmission = ''.join(infoAccessKey.pointEmission)
     sequential = ''.join(infoAccessKey.sequential)
     randomNumber = ''.join(infoAccessKey.randomNumber)
+    typeEmission = ''.join(infoAccessKey.typeEmission)
 
     # combination of data
-    preAccessKey = dateEmission + codDoc  + rucBusiness + environment + establishment + pointEmission + sequential  + randomNumber
-    checkerDigit = module11.modulo11(preAccessKey)
+    preAccessKey = dateEmission + codDoc  + rucBusiness + environment + establishment + pointEmission + sequential  + randomNumber + typeEmission
+    print(len(preAccessKey))
+    # checkerDigit = module11.modulo11(preAccessKey)
+    checkDigit = xades.CheckDigit()
+    checkerDigit = str(checkDigit.compute_mod11(preAccessKey))
+    print(checkerDigit)
+    # validate when the digit is 10
+    if int(checkerDigit) == 10:
+        checkerDigit = 1
+    if int(checkerDigit) == 11:
+        checkerDigit = 0
 
     #join preAccessKey with checkerDigit
     accessKey = preAccessKey + checkerDigit

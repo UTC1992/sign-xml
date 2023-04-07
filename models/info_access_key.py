@@ -8,6 +8,7 @@ class InfoAccessKey:
             codDoc: str,
             rucBusiness: str,
             environment: str,
+            typeEmission: str,
             establishment: str,
             pointEmission: str,
             sequential: str,
@@ -23,6 +24,7 @@ class InfoAccessKey:
         self.pointEmission = pointEmission
         self.sequential = sequential
         self.randomNumber = randomNumber
+        self.typeEmission = typeEmission
 
     def getDateComplete(self):
         return self.dayEmission + self.monthEmission + self.yearEmission

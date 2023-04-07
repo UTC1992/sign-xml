@@ -1,12 +1,13 @@
-def modulo11(num):
-    # Convert the number to a list of digits in reverse order
-    digits = [int(d) for d in str(num)][::-1]
-
-    # Calculate the weighted sum of the digits
-    sumOfDigits = sum([(i + 2) * d for i, d in enumerate(digits)])
-
-    # Calculate the check digit
-    validator = (11 - (sumOfDigits % 11)) % 11
-
-    # Return the check digit as a string
-    return str(validator)
+def modulo11(num: str):
+    factor_peso = 2
+    sum = 0
+    for digit in reversed(str(num)):
+        sum += int(digit) * factor_peso
+        factor_peso += 1
+        if factor_peso > 7:
+            factor_peso = 2
+    rest = sum % 11
+    if rest == 0 or rest == 1:
+        return str(0)
+    else:
+        return str(11 - rest)

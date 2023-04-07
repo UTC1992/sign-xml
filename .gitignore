@@ -3,3 +3,4 @@
 /signed-xml
 .env
 *.xml
+/__pycache__
